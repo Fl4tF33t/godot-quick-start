@@ -6,45 +6,50 @@ const JSON_PATH: String = "res://addons/project_initialization/config.json"
 const MENU_ITEM: String = "Initialize Project"
 const TOOL_SCENE: PackedScene = preload("res://addons/project_initialization/project_initialization.tscn")
 
-var dock: EditorDock
+var tool_window: Window
 
 func _enable_plugin() -> void:
-	add_tool_menu_item(MENU_ITEM, _open_tool)
+	remove_tool_menu_item(MENU_ITEM)
+	add_tool_menu_item(MENU_ITEM, _open_window)
 
 func _disable_plugin() -> void:
 	remove_tool_menu_item(MENU_ITEM)
 
-func _open_tool() -> void:
-	# If the dock already exists, just show it.
-	if is_instance_valid(dock):
-		dock.make_visible()
-		return
-
-	# Create the dock.
-	dock = EditorDock.new()
-	dock.title = MENU_ITEM
-	dock.default_slot = EditorDock.DOCK_SLOT_LEFT_UL
-
-	# Optional settings for a temporary utility dock.
-	dock.transient = true
-	dock.global = false
-	dock.closable = true
-
-	# Add the UI.
-	var tool: Control = TOOL_SCENE.instantiate()
-	dock.add_child(tool)
-
-	# Register the dock with the editor.
-	add_dock(dock)
-	dock.make_visible()
-
+func _enter_tree() -> void:
+	_enable_plugin()
 
 func _exit_tree() -> void:
-	if is_instance_valid(dock):
-		remove_dock(dock)
-		dock.queue_free()
+	_disable_plugin()
+	if is_instance_valid(tool_window):
+		tool_window.queue_free()
+		tool_window = null
 
-	dock = null
+func _open_window() -> void:
+    # If the window already exists, just show it.
+	if is_instance_valid(tool_window):
+		tool_window.popup_centered()
+		return
+
+    # Create the window.
+	tool_window = Window.new()
+	tool_window.title = MENU_ITEM
+	tool_window.size = Vector2i(400, 200)
+
+    # Window settings.
+	tool_window.unresizable = true
+	tool_window.close_requested.connect(_on_window_close)
+
+    # Add the UI.
+	var tool: Control = TOOL_SCENE.instantiate()
+	tool_window.add_child(tool)
+
+    # Register the window with the editor.
+	EditorInterface.popup_dialog_centered(tool_window)
+
+func _on_window_close() -> void:
+	if is_instance_valid(tool_window):
+		tool_window.queue_free()
+		tool_window = null
 
 static func get_json_data(key: String) -> Variant:
 	var file = FileAccess.open(JSON_PATH, FileAccess.READ)
