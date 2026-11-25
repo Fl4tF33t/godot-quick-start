@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bas00mo3rjsfc"]
+
+[ext_resource type="Script" uid="uid://cjpps034r6742" path="res://addons/project_initialization/create_folder_structure.gd" id="1_fixnl"]
+[ext_resource type="Script" uid="uid://cqsyk623s4wo" path="res://addons/project_initialization/configure_project_settings.gd" id="2_4jfuo"]
+
+[node name="Project Initialization" type="Control" unique_id=1010236872]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=442702080]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Create Folder Structure" type="Button" parent="VBoxContainer" unique_id=1860156867]
+layout_mode = 2
+text = "Create Folder Structure"
+script = ExtResource("1_fixnl")
+
+[node name="Configure Project Settings" type="Button" parent="VBoxContainer" unique_id=881090863]
+layout_mode = 2
+text = "Configure Project Settings"
+script = ExtResource("2_4jfuo")

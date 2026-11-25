@@ -1,0 +1,41 @@
+{
+	"folders": [
+		"assets",
+		"assets/audio",
+		"assets/fonts",
+		"assets/materials",
+		"assets/models",
+		"assets/shaders",
+		"assets/sprites",
+		"assets/textures",
+
+		"scenes",
+		"scenes/components",
+
+		"scripts",
+		"scripts/autoload",
+		"scripts/managers",
+		"scripts/components",
+		"scripts/utilities",
+		"scripts/resources",
+
+		"resources",
+		"resources/data",
+		"resources/configs",
+
+        "tests"
+	],
+
+	"project_settings": {
+		"display/window/size/viewport_width": 640,
+		"display/window/size/viewport_height": 360,
+		"display/window/stretch/aspect": "keep"
+	},
+	
+	"editor_settings": {
+		"text_editor/external/use_external_editor": true,
+		"text_editor/external/exec_path": "C:/Users/helmy/AppData/Local/Programs/Microsoft VS Code/bin/code.cmd",
+		"text_editor/external/exec_flags": "{project} --goto {file}:{line}:{col}",
+		"text_editor/behavior/files/auto_reload_scripts_on_external_change": true
+	}
+}
